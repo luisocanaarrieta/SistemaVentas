@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BackEnd.Models.Users>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.USER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.USER_PASSWORD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LOG_DATE_CREATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LOG_DATE_UPDATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LOG_USER_CREATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LOG_USER_UPDATE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER_PASSWORD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOG_DATE_CREATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOG_DATE_UPDATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOG_USER_CREATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOG_USER_UPDATE)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
