@@ -1,4 +1,4 @@
-﻿using BackEnd.Models;
+﻿using BackEnd.Modules.ModuloSeguridad.Usuarios.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,7 +8,7 @@ namespace BackEnd.Utils
 {
     public class JwtConfiguration
     {
-        public static string GetToken(Users userInfo, IConfiguration config)
+        public static string GetToken(Usuario userInfo, IConfiguration config)
         {
             string SecretKey = config["Jwt:SecretKey"];
             string Issuer = config["Jwt:Issuer"];

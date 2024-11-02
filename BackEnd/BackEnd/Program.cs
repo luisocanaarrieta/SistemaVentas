@@ -1,11 +1,7 @@
 using BackEnd.Context;
-using BackEnd.Domain.IRepositories;
-using BackEnd.Domain.IServices;
-using BackEnd.Repositories;
-using BackEnd.Services;
+using BackEnd.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -16,10 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion")));
 
-//SERVICES
-builder.Services.AddScoped<IUserService, UserService>();
-//REPOSITORIES
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+//SERVICES and REPOSITORIES
+// Metodo donde se declaran los servicios de la aplicacion
+builder.Services.ConfigureServices();
+
 //CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", 
                         builder => builder.AllowAnyOrigin()
@@ -73,10 +69,18 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.MapControllers();
-app.UseSwagger();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackEnd"));
+//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackEnd"));
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.DefaultModelsExpandDepth(-1);
+
+    });
+}
 app.UseCors("AllowWebApp");
 app.Run();
  

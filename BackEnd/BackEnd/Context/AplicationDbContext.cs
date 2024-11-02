@@ -1,12 +1,11 @@
-﻿using BackEnd.Models;
+﻿using BackEnd.Modules.ModuloSeguridad.Usuarios.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace BackEnd.Context
 {
     public class AplicationDbContext : DbContext
     {
-        public DbSet<Users> Users { get; set; }
+        public DbSet<Usuario> Users { get; set; }
 
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
         {
