@@ -1,0 +1,78 @@
+.active-list-item {
+    background-color: rgb(157, 187, 220) !important;
+    /* Note: You could also use a custom theme */
+    font-weight: bolder;
+    color: black !important;
+    /* Note: You could also use a custom theme */
+    font-weight: bold;
+    max-height: 100% !important;
+  }
+  
+  
+  
+  .Sublist {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 15px;
+  
+  }
+  
+  .Sublist1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 19px;
+  
+  }
+  
+  .Sublist2 {
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    /*word-break:break-all;*/
+  }
+  
+  .example-container {
+    width: 100%;
+    height: 100%;
+    position:fixed;
+  }
+  
+  .for {
+    width: 80vw;
+  }
+  
+  mat-drawer {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: calc(100% - 64px);
+  }
+  
+  mat-drawer-content {
+    height: calc(100% - 64px);;
+  }
+  
+  mat-toolbar {
+    /*flex: 0 0 auto;*/
+    background-color: rgb(36, 160, 219);
+  }
+  
+  mat-icon {
+    size: 10ch;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .list-item-content {
+    display: flex;
+    align-items: center; /* Alinea verticalmente al centro */
+}
+
+.list-item-content mat-icon {
+    margin-right: 8px; /* Ajusta el espacio entre el ícono y el texto */
+}

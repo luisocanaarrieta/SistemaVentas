@@ -5,32 +5,18 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Entities
 {
     public class Usuario
     {
-        public int ID { get; set; }
-
-        [Required]
-        [Column(TypeName = "varchar(20)")]
-        public string USER_NAME { get; set; }
-
-        [Required]
-        [Column(TypeName = "varchar(50)")]
-        public string USER_PASSWORD { get; set; }
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime LOG_DATE_CREATE { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime? LOG_DATE_UPDATE { get; set; }
-
-        [Required]
-        [Column(TypeName = "varchar(50)")]
-        public string LOG_USER_CREATE { get; set; }
-
-        [Column(TypeName = "varchar(50)")]
-        public string? LOG_USER_UPDATE { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime? ENDS { get; set; }
+        public string? userCode { get; set; }
+        public string? userName { get; set; }
+        public string? userUserName { get; set; }
+        public string? userPassword { get; set; }
+        public int userRole { get; set; }
+        public string? userMail { get; set; }
+        public string? userPhone { get; set; }
+        public bool status { get; set; }
+        public string? usuarioCrea { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public string? usuarioActualiza { get; set; }
+        public DateTime fechaActualiza { get; set; }
+        public DateTime? ends { get; set; }
     }
 }

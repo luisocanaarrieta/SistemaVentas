@@ -1,0 +1,28 @@
+<div class="body">
+    <mat-card class="loginCard">
+        <div class="header">
+            <h2 class="login-title">Login</h2>
+        </div>
+        <mat-card-content style="padding-bottom: 15px;">
+            <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()" class="login-form">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input formControlName="usuario" required matInput autocomplete="off">
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input formControlName="password" required matInput autocomplete="off" type="password">
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="formularioLogin.invalid">Iniciar</button>
+            </form>
+        </mat-card-content>
+
+        <mat-card-footer>
+            <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+        </mat-card-footer>
+    </mat-card>
+</div>

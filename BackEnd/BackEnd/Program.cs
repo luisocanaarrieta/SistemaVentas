@@ -1,7 +1,5 @@
-using BackEnd.Context;
 using BackEnd.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -9,11 +7,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion")));
 
-//SERVICES and REPOSITORIES
-// Metodo donde se declaran los servicios de la aplicacion
+//Declaracion los servicios de la aplicacion
 builder.Services.ConfigureServices();
 
 //CORS
@@ -71,7 +66,6 @@ var app = builder.Build();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackEnd"));
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

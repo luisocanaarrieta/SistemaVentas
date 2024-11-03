@@ -1,0 +1,21 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loginCard {
+    width: 400px;
+    padding: 20px;
+}
+
+.login-title {
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}

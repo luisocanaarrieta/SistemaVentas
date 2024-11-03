@@ -4,10 +4,8 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Task SaveUser(Usuario usuario);
-        Task<bool> ValidateExistence(Usuario usuario);
-        Task<Usuario> ValidatePassword(int idUsuario, string passwordAnterior);
-        Task UpdatePassword(Usuario usuario);
-        Task<Usuario> ValidateUser(Usuario usuario);
+        Task<int> SaveUser(Usuario usuario);
+        Task<int> ValidateExistence(Usuario usuario);
+        Task<List<UsuarioDto>> ListarUsuarios();
     }
 }

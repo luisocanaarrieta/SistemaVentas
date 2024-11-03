@@ -19,25 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\ModuloMantenimiento\Categoria\Controller\" />
-    <Folder Include="Modules\ModuloMantenimiento\Categoria\Entities\" />
-    <Folder Include="Modules\ModuloMantenimiento\Categoria\Interfaces\" />
-    <Folder Include="Modules\ModuloMantenimiento\Categoria\Service\" />
-    <Folder Include="Modules\ModuloMantenimiento\Categoria\Repository\" />
-    <Folder Include="Modules\ModuloMantenimiento\Producto\Controller\" />
-    <Folder Include="Modules\ModuloMantenimiento\Producto\Entities\" />
-    <Folder Include="Modules\ModuloMantenimiento\Producto\Interfaces\" />
-    <Folder Include="Modules\ModuloMantenimiento\Producto\Repository\" />
-    <Folder Include="Modules\ModuloMantenimiento\Producto\Service\" />
     <Folder Include="Modules\ModuloMantenimiento\Serie\Controller\" />
     <Folder Include="Modules\ModuloMantenimiento\Serie\Entities\" />
     <Folder Include="Modules\ModuloMantenimiento\Serie\Interfaces\" />
     <Folder Include="Modules\ModuloMantenimiento\Serie\Repository\" />
     <Folder Include="Modules\ModuloMantenimiento\Serie\Service\" />
-    <Folder Include="Modules\ModuloSeguridad\Login\Controller\" />
-    <Folder Include="Modules\ModuloSeguridad\Login\Interfaces\" />
-    <Folder Include="Modules\ModuloSeguridad\Login\Repository\" />
-    <Folder Include="Modules\ModuloSeguridad\Login\Service\" />
     <Folder Include="Modules\ModuloVenta\Pedidos\Controller\" />
     <Folder Include="Modules\ModuloVenta\Pedidos\Entities\" />
     <Folder Include="Modules\ModuloVenta\Pedidos\Interfaces\" />

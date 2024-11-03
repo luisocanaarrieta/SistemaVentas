@@ -19,8 +19,8 @@ namespace BackEnd.Utils
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.USER_NAME),
-                new Claim("idUsuario", userInfo.ID.ToString())
+                new Claim(JwtRegisteredClaimNames.Sub, userInfo.userUserName),
+                new Claim("userCode", userInfo.userCode.ToString())
             };
 
             var token = new JwtSecurityToken(
@@ -41,7 +41,7 @@ namespace BackEnd.Utils
                 IEnumerable<Claim> claims = identity.Claims;
                 foreach (var claim in claims)
                 {
-                    if (claim.Type == "idUsuario")
+                    if (claim.Type == "USER_ID")
                     {
                         return int.Parse(claim.Value);
                     }

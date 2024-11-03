@@ -1,4 +1,5 @@
-﻿using BackEnd.Modules.ModuloSeguridad;
+﻿using BackEnd.Modules.ModuloMantenimiento;
+using BackEnd.Modules.ModuloSeguridad;
 
 namespace BackEnd.Modules
 {
@@ -7,6 +8,7 @@ namespace BackEnd.Modules
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             DependenciesModuloSeguridad.ConfigureServices(services);
+            DependenciesModuloMantenimiento.ConfigureServices(services);
             return services;
         }
     }
