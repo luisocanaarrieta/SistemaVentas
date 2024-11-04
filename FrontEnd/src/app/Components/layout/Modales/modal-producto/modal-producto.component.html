@@ -1,1 +1,106 @@
-<p>modal-producto works!</p>
+<div class="p-2 col-md-12">
+    <div class="row">
+        <div class="p-2 col-md-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 mat-dialog-title>{{tituloAccion}} Producto</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="p-2 col-md-12">
+            <div class="card">
+                <div class="card-body" style="padding: 2%;">
+                    <form [formGroup]="formularioProducto">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Nombre Completo</mat-label>
+                                    <input matInput autocomplete="off" 
+                                        formControlName="nombreCompleto">
+                                    <mat-icon matSuffix>person</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Categoria</mat-label>
+                                    <mat-select formControlName="categoriaName">
+                                        <mat-option *ngFor="let item of listaCategorias" [value]="item.categoriaId">
+                                            {{item.categoriaName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>                           
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Correo</mat-label>
+                                    <input matInput autocomplete="off" formControlName="correo">
+                                    <mat-icon matSuffix>mail</mat-icon>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Telefono</mat-label>
+                                    <input matInput autocomplete="off" formControlName="telefono">
+                                    <mat-icon matSuffix>phone</mat-icon>
+                                </mat-form-field>
+                            </div>         
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Usuario</mat-label>
+                                    <input formControlName="usuario" matInput autocomplete="off" >
+                                    <mat-icon matSuffix>photo</mat-icon>
+                                </mat-form-field>
+                            </div> 
+
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input formControlName="contraseña" matInput autocomplete="off" type="password">
+                                    <mat-icon matSuffix>password</mat-icon>
+                                </mat-form-field>
+                            </div>  
+                        </div>
+
+                        <div class="row">                           
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Codigo Trabajadpr</mat-label>
+                                    <input formControlName="codigoTrabajador" matInput autocomplete="off" >
+                                    <mat-icon matSuffix>code</mat-icon>
+                                </mat-form-field>
+                            </div> 
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select formControlName="esActivo">
+                                        <mat-option value="1">Activo</mat-option>
+                                        <mat-option value="0">Inactivo</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+        <button mat-raised-button color="primary" [disabled]="formularioProducto.invalid"
+            (click)="guardarEditarProducto()">{{botonAccion}}</button>
+    </mat-dialog-actions>
+</div>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

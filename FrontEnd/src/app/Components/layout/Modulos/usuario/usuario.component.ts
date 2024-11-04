@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UsuarioService } from 'src/app/Services/Seguridad/usuario.service';
 import { SharedService } from 'src/app/Shared/shared.service';
 import { ModalUsuarioComponent } from '../../Modales/modal-usuario/modal-usuario.component';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,33 +18,29 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   columnasTabla: string[] = ['nombreCompleto', 'nombreUsuario', 'email', 'telefono', 'rol', 'estado', 'acciones'];
   dataInicio: any[] = [];
-  dataListaUsuarios = new MatTableDataSource(this.dataInicio);
-  @ViewChild(MatPaginator) paginatorTabla!: MatPaginator;
+  
+  public matDataSource = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private dialog: MatDialog,
     private _usuarioService: UsuarioService,
     private _sharedService: SharedService,
+    private spinner: NgxSpinnerService
   ) { }
 
-
-  obtenerUsuarios() {
-    this._usuarioService.obtenerUsuarios().subscribe(r => {
-      this.dataListaUsuarios = r;
-    })
-  }
-
   ngOnInit(): void {
-    this.obtenerUsuarios();
+    this.ListarUsuarios();
   }
 
   ngAfterViewInit(): void {
-    this.dataListaUsuarios.paginator = this.paginatorTabla;
+    this.matDataSource.paginator = this.paginator;
   }
 
-  aplicarFiltro(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaUsuarios.filter = filterValue.trim().toLowerCase();
+  ListarUsuarios() {
+    this._usuarioService.ListarUsuarios().subscribe(r => {
+      this.matDataSource.data = r;
+    })
   }
 
   nuevoUsuario() {
@@ -50,7 +48,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
       disableClose: true,
     }).afterClosed().subscribe(r => {
       if (r) {
-        this.obtenerUsuarios();
+        this.ListarUsuarios();
       }
     });
   }
@@ -61,7 +59,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
       data: usuario
     }).afterClosed().subscribe(r => {
       if (r) {
-        this.obtenerUsuarios();
+        this.ListarUsuarios();
       }
     });
   }
@@ -69,7 +67,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   inactivarUsuario(usuario: any) {
     Swal.fire({
       title: '¿Está seguro de inactivar el usuario?',
-      text: usuario.nombreCompleto,
+      text: usuario.userName,
       icon: 'warning',
       confirmButtonColor: '#3085d6',
       confirmButtonText: 'Sí',
@@ -78,14 +76,22 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        this._usuarioService.inactivarUsuario(usuario.id).subscribe(r => {
+        this.spinner.show();
+        this._usuarioService.EliminarUsuario(usuario.userId).subscribe(r => {
           if (r) {
             this._sharedService.mensajeAlerta('Usuario inactivado', 'Ok');
-            this.obtenerUsuarios();
+            this.ListarUsuarios();
+            this.spinner.hide();
           } else
             this._sharedService.mensajeAlerta('No se pudo eliminar', 'Error');
         });
       }
     })
   }
+
+  aplicarFiltro(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.matDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }

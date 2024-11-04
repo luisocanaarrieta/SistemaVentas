@@ -1,5 +1,6 @@
 ﻿using BackEnd.Modules.ModuloMantenimiento;
 using BackEnd.Modules.ModuloSeguridad;
+using BackEnd.Modules.ModuloVenta;
 
 namespace BackEnd.Modules
 {
@@ -9,6 +10,7 @@ namespace BackEnd.Modules
         {
             DependenciesModuloSeguridad.ConfigureServices(services);
             DependenciesModuloMantenimiento.ConfigureServices(services);
+            DependenciesModuloVenta.ConfigureServices(services);
             return services;
         }
     }

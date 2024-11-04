@@ -7,8 +7,10 @@
         public string userName { get; set; }
         public string userUsername { get; set; }
         public int rolId { get; set; }
+        public string rolName { get; set; }
         public string userEmail { get; set; }
         public string userPhone { get; set; }
+        public string userPassword { get; set; } = "***********";
         public bool userStatus { get; set; }
     }
 }

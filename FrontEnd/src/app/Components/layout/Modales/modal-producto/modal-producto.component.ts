@@ -2,9 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaService } from 'src/app/Services/Mantenimiento/categoria.service';
+import { ProductoService } from 'src/app/Services/Mantenimiento/producto.service';
 import { RolService } from 'src/app/Services/Seguridad/rol.service';
 import { UsuarioService } from 'src/app/Services/Seguridad/usuario.service';
 import { SharedService } from 'src/app/Shared/shared.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LoginService } from 'src/app/Services/Seguridad/login.service';
 
 @Component({
   selector: 'app-modal-producto',
@@ -17,14 +20,18 @@ export class ModalProductoComponent implements OnInit {
   tituloAccion: string = "Agregar";
   botonAccion: string = "Guardar";
 
+  subUsuario: string ='';
   listaCategorias: any[] = [];
   constructor(
     private modalActual: MatDialogRef<ModalProductoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
     private _categoriaService: CategoriaService,
     private _usuarioService: UsuarioService,
     private _sharedService: SharedService,
+    private _productoService: ProductoService,
+    private _loginService: LoginService,
   ) {
 
     this.formularioProducto = this.fb.group({
@@ -47,6 +54,8 @@ export class ModalProductoComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.obtenerNombreUsuario();
+
     if (this.data != null) {
       this.formularioProducto.patchValue({
         nombre: this.data.nombre,
@@ -59,48 +68,62 @@ export class ModalProductoComponent implements OnInit {
     }
   }
 
+  obtenerNombreUsuario(): void {
+    const tokenDecode = this._loginService.getTokenDecode();
+    this.subUsuario = tokenDecode.sub
+
+  }
+
+
   guardarEditarProducto() {
-    const producto: any = {
-      idUsuario: this.data != null ? this.data.idUsuario : 0,
-      nombreCompleto: this.formularioProducto.value.nombreCompleto,
-      nombreUsuario: this.formularioProducto.value.nombreUsuario,
-      password: this.formularioProducto.value.password,
-      idRol: this.formularioProducto.value.idRol,
-      email: this.formularioProducto.value.email,
-      telefono: this.formularioProducto.value.telefono,
-      esActivo: parseInt(this.formularioProducto.value.esActivo),
+    const usuario: any = {
+      userId: this.data == null ? 0 : this.data.userId,
+      userCode: this.formularioProducto.value.codigoTrabajador,
+      userName: this.formularioProducto.value.nombreCompleto,
+      userUserName: this.formularioProducto.value.usuario,
+      userPassword: this.formularioProducto.value.contraseña,
+      userRole: this.formularioProducto.value.idRol,
+      userMail: this.formularioProducto.value.correo,
+      userPhone: this.formularioProducto.value.telefono,
+      usuarioCrea: this.subUsuario,
+      status: this.formularioProducto.value.esActivo ? true : false
     }
 
     if (this.data == null) {
-      this._usuarioService.saveUser(producto).subscribe({
+      this.spinner.show();
+      this._productoService.InsertarProducto(usuario).subscribe({
         next: (r) => {
-          if (r.status == 200) {
-            this._sharedService.mensajeAlerta("Usuario guardado correctamente", "Exito");
+          if (r.message == 'OK') {
+            this._sharedService.mensajeAlerta(r.message, "Éxito");
             this.modalActual.close("true");
-          }
-          else {
+
+          } else {
             this._sharedService.mensajeAlerta("Error al guardar el usuario", "Error");
           }
+          this.spinner.hide();
         },
         error: (err) => {
-          this._sharedService.mensajeAlerta("Error al guardar el usuario", "Error");
+          const errorMessage = err.error?.message || "Error al guardar el usuario";
+          this._sharedService.mensajeAlerta(errorMessage, "Error");
+          this.spinner.hide();
         }
-      }
-      );
-
-    } else {
-      this._usuarioService.updateUser(producto).subscribe({
+      });
+    }
+    else {
+      this.spinner.show();
+      this._productoService.ActualizarProducto(usuario).subscribe({
         next: (r) => {
-          if (r.status == 200) {
-            this._sharedService.mensajeAlerta("Usuario actualizado correctamente", "Exito");
-            this.modalActual.close("true");
+          if (r.message  == 'OK') {
+            this._sharedService.mensajeAlerta(r.message, "Éxito");
+            this.modalActual.close("true");    
           }
           else {
-            this._sharedService.mensajeAlerta("Error al actualizar el usuario", "Error");
+            this._sharedService.mensajeAlerta("Error al actualizar el usuarioA", "Error");
           }
+          this.spinner.hide();
         },
-        error: (err) => {
-          this._sharedService.mensajeAlerta("Error al actualizar el usuario", "Error");
+        error: (  ) => {
+          this._sharedService.mensajeAlerta("Error al actualizar el usuarioB", "Error");
         }
       }
       );

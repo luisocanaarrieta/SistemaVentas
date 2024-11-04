@@ -24,16 +24,19 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Controller
         {
             try
             {
+                
+                usuario.userPassword = Encriptar.EncriptarPassword(usuario.userPassword);
+
                 var validateExistence = await _usuarioService.ValidateExistence(usuario);
                 if (validateExistence > 1)
                 {
-                    return BadRequest(new { message = "El usuario " + usuario.userName + " Ya existe" });
+                    return BadRequest(new { message = "El usuario " + usuario.userUserName + " Ya existe" });
                 }
 
-                usuario.userPassword = Encriptar.EncriptarPassword(usuario.userPassword);
                 await _usuarioService.SaveUser(usuario);
 
-                return Ok(new { message = "Usuario Registrado con exito" });
+
+                return Ok(new { message = "Ok" });
             }
             catch (Exception ex)
             {
@@ -51,6 +54,41 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Controller
                 var result = await _usuarioService.ListarUsuarios();
 
                 return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPut("EliminarUsuario")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EliminarUsuario([FromBody] int userId )
+        {
+            try
+            {
+                var result = await _usuarioService.EliminarUsuario(userId);
+
+                return Ok(new { message = "OK" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("ActualizarUsuario")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ActualizarUsuario([FromBody] Usuario usuario)
+        {
+            try
+            {
+                var result = await _usuarioService.ActualizarUsuario(usuario);
+
+                return Ok(new { message = "OK" });
             }
             catch (Exception e)
             {

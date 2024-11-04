@@ -4,6 +4,7 @@ using BackEnd.Modules.ModuloSeguridad.Usuarios.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Repository
 {
@@ -26,7 +27,7 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Repository
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.Add(new SqlParameter("@USUARIO", SqlDbType.VarChar) { Value = usuario.userName });
+                    command.Parameters.Add(new SqlParameter("@USUARIO", SqlDbType.VarChar) { Value = usuario.userUserName });
                     command.Parameters.Add(new SqlParameter("@CLAVE", SqlDbType.VarChar) { Value = usuario.userPassword });
 
                     var result = await command.ExecuteScalarAsync();
@@ -87,6 +88,7 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Repository
                                 userName = dr.GetString(dr.GetOrdinal("USER_NAME")),
                                 userUsername = dr.GetString(dr.GetOrdinal("USER_USERNAME")),
                                 rolId = dr.GetInt32(dr.GetOrdinal("ROL_ID")),
+                                rolName = dr.GetString(dr.GetOrdinal("ROL_NAME")),
                                 userEmail = dr.GetString(dr.GetOrdinal("USER_MAIL")),
                                 userPhone = dr.GetString(dr.GetOrdinal("USER_PHONE_NUMBER")),
                                 userStatus = dr.GetBoolean(dr.GetOrdinal("USER_STATUS"))
@@ -99,6 +101,50 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Repository
                 }
             }
             return lista;
+        }
+
+        public async Task<int> EliminarUsuario(int userId)
+        {
+            using (SqlConnection sql = new SqlConnection(_connectionString))
+            {
+                await sql.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("UspVentas_EliminarUsuario", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(new SqlParameter("@USER_ID", SqlDbType.Int) { Value = userId });
+
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    return result;
+                }
+            }
+        }
+
+        public async Task<int> ActualizarUsuario(Usuario usuario)
+        {
+            using (SqlConnection sql = new SqlConnection(_connectionString))
+            {
+                await sql.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("UspVentas_ActualizarUsuario", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(new SqlParameter("@USER_ID", SqlDbType.Int) { Value = usuario.userId });
+                    cmd.Parameters.Add(new SqlParameter("@USER_CODE", SqlDbType.VarChar){Value=usuario.userCode});
+                    cmd.Parameters.Add(new SqlParameter("@USER_NAME",SqlDbType.VarChar){Value= usuario.userName});
+                    cmd.Parameters.Add(new SqlParameter("@USER_USERNAME",SqlDbType.VarChar){Value= usuario.userUserName});
+                    cmd.Parameters.Add(new SqlParameter("@USER_MAIL", SqlDbType.VarChar){Value=usuario.userMail});
+                    cmd.Parameters.Add(new SqlParameter("@USER_PHONE_NUMBER",SqlDbType.VarChar){Value= usuario.userPhone});
+                    cmd.Parameters.Add(new SqlParameter("@USER_STATUS", SqlDbType.Bit){Value=usuario.status});
+                    cmd.Parameters.Add(new SqlParameter("@ROL_ID", SqlDbType.Int){Value=usuario.userRole});
+                    cmd.Parameters.Add(new SqlParameter("@LOG_USER_UPDATE", SqlDbType.VarChar){Value=usuario.usuarioCrea });
+
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    return result; 
+                }
+            }
         }
     }
 }

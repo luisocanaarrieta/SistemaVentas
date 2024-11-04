@@ -61,3 +61,26 @@ VALUES
 ('SKU028', 'Papel Aluminio', 23, FLOOR(RAND()*(100-10+1)+10), ROUND(RAND()*(1.50-1.00)+1.00, 2), 'ADMIN'),
 ('SKU029', 'Insecticida', 24, FLOOR(RAND()*(100-10+1)+10), ROUND(RAND()*(4.00-2.50)+2.50, 2), 'ADMIN'),
 ('SKU030', 'Vela', 25, FLOOR(RAND()*(100-10+1)+10), ROUND(RAND()*(1.20-0.50)+0.50, 2), 'ADMIN');
+
+
+INSERT INTO SAL.STATUS_ORDER (STATUS_ORDER_NAME, STATUS_ORDER_DESC, LOG_USER_CREATE)
+VALUES 
+    ('Por atender', 'Estado para el momento del registro', 'ADMIN'),
+    ('En proceso', 'Estado que el Encargado colocará después del registro', 'ADMIN'),
+    ('Entregado', 'Estado que el Delivery colocará al momento de la entrega', 'ADMIN');
+
+	INSERT INTO SAL.NUMBERING_TYPE (NUM_TYPE_NAME, NUM_TYPE_DESC, LOG_USER_CREATE)
+VALUES 
+    ('FA', 'Factura', 'ADMIN'),
+    ('BO', 'Boleta', 'ADMIN');
+
+
+INSERT INTO SAL.NUMBERING (NUM_TYPE_ID, NUM_SERIAL, NUM_NAME, NUM_NOW, LOG_USER_CREATE)
+VALUES 
+    ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'FA'), 'F101', 'Factura tienda principal', 1, 'ADMIN'),
+    ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'FA'), 'F201', 'Factura sucursal lima', 1, 'ADMIN');
+
+INSERT INTO SAL.NUMBERING (NUM_TYPE_ID, NUM_SERIAL, NUM_NAME, NUM_NOW, LOG_USER_CREATE)
+VALUES 
+    ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'BO'), 'B101', 'Boleta tienda principal', 1, 'ADMIN'),
+    ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'BO'), 'B201', 'Boleta sucursal lima', 1, 'ADMIN');

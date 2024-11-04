@@ -18,23 +18,23 @@ export class UsuarioService {
   }
 
   saveUser(usuario : any):Observable<any>  {
-    return this.http.post(this.myAppUrl + this.myApiUrl, usuario);
+    return this.http.post(this.myAppUrl + this.myApiUrl +'/SaveUser', usuario);
   }
 
   changePassword(changePassword: any):Observable<any>  {
     return this.http.put(this.myAppUrl + this.myApiUrl + '/CambiarPassword', changePassword);
   }
 
-  updateUser(usuario : any):Observable<any>  {
-    return this.http.post(this.myAppUrl + this.myApiUrl, usuario);
-  }
-  
-  obtenerUsuarios():Observable<any>  {
-    return this.http.get(this.myAppUrl + this.myApiUrl);
+  ListarUsuarios():Observable<any>  {
+    return this.http.get(this.myAppUrl + this.myApiUrl  + '/ListarUsuarios');
   }
 
-  inactivarUsuario(id: number):Observable<any>  {
-    return this.http.delete(this.myAppUrl + this.myApiUrl + '/' + id);
+  EliminarUsuario(userId: number):Observable<any>  {
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/EliminarUsuario', userId);
+  }
+
+  ActualizarUsuario(usuario : any):Observable<any>  {
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/ActualizarUsuario', usuario);
   }
 
 }

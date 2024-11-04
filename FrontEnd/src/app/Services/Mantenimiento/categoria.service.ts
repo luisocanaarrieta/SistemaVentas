@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  constructor() { }
 
+  myAppUrl: string;
+  myApiUrl: string;
 
-  obtenerCategorias(): Observable<any> {
-    return new Observable<any>(observer => {
-      observer.next([
-        { idRol: 1, nombreRol: 'Administrador' },
-        { idRol: 2, nombreRol: 'Usuario' }
-      ]);
-      observer.complete();
-    });
+  constructor(private http: HttpClient)   { 
+    this.myAppUrl = environment.endpoint;
+    this.myApiUrl = '/api/Categoria';
+  }
+
+  obtenerCategorias():Observable<any>  {
+    return this.http.get(this.myAppUrl + this.myApiUrl+'/ListarCategoriaProductos');
   }
 }

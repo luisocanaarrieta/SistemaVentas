@@ -1,4 +1,5 @@
-﻿using BackEnd.Modules.ModuloMantenimiento.Producto.Interfaces;
+﻿using BackEnd.Modules.ModuloMantenimiento.Producto.Entities;
+using BackEnd.Modules.ModuloMantenimiento.Producto.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Modules.ModuloMantenimiento.Producto.Controller
@@ -32,6 +33,58 @@ namespace BackEnd.Modules.ModuloMantenimiento.Producto.Controller
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost("InsertarProducto")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> InsertarProducto([FromBody] Productto usuario)
+        {
+            try
+            {
+                var result = await _productoService.InsertarProducto(usuario);
+
+                return Ok(new { message = "OK" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("EliminarProducto")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> EliminarProducto([FromBody] int productId)
+        {
+            try
+            {
+                var result = await _productoService.EliminarProducto(productId);
+
+                return Ok(new { message = "OK" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("ActualizarProducto")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ActualizarProducto([FromBody] Productto usuario)
+        {
+            try
+            {
+                var result = await _productoService.ActualizarProducto(usuario);
+
+                return Ok(new { message = "OK" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 
    

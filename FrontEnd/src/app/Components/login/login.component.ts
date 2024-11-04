@@ -31,10 +31,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   
-
-
-
-
   iniciarSesion() {
     const usuario: any = {
       userUserName: this.formularioLogin.value.usuario,

@@ -20,6 +20,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 
 
 import { LayoutModule } from '@angular/cdk/layout';
@@ -53,7 +55,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDatepickerModule,
     MatNativeDateModule,
     LayoutModule,
-    MatIconModule
+    MatIconModule,
+    MatAutocompleteModule
   ],
   providers: [
     MatDatepickerModule,

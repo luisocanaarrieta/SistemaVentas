@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { RolService } from 'src/app/Services/Seguridad/rol.service';
 import { UsuarioService } from 'src/app/Services/Seguridad/usuario.service';
 import { SharedService } from 'src/app/Shared/shared.service';
+import { LoginService } from 'src/app/Services/Seguridad/login.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class ModalUsuarioComponent implements OnInit {
   tituloAccion: string = "Agregar";
   botonAccion: string = "Guardar";
 
+  subUsuario: string ='';
+  tokenDecode: any;
   listaRoles: any[] = [];
 
   constructor(
@@ -26,15 +30,19 @@ export class ModalUsuarioComponent implements OnInit {
     private _rolService: RolService,
     private _usuarioService: UsuarioService,
     private _sharedService: SharedService,
+    private _loginService: LoginService,
+    private spinner: NgxSpinnerService,
+
   ) {
 
     this.formularioUsuario = this.fb.group({
       nombreCompleto: ['', Validators.required],
-      nombreUsuario: ['', Validators.required],
-      password: ['', Validators.required],
-      idRol: [0, Validators.required],
-      email: ['', Validators.required],
-      telefono: ['', Validators.required],
+      idRol: [1, Validators.required],
+      correo: ['', Validators.required],
+      telefono: ['', Validators.required], 
+      usuario: ['', Validators.required],
+      contraseña: ['', Validators.required],
+      codigoTrabajador : ['', Validators.required],
       esActivo: ['1', Validators.required],
     });
 
@@ -50,62 +58,79 @@ export class ModalUsuarioComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.obtenerNombreUsuario();
+
     if (this.data != null) {
       this.formularioUsuario.patchValue({
-        nombreCompleto: this.data.nombreCompleto,
-        nombreUsuario: this.data.nombreUsuario,
-        password: this.data.password,
-        idRol: this.data.idRol,
-        email: this.data.email,
-        telefono: this.data.telefono,
-        esActivo: this.data.esActivo.toString(),
+        idUsuario: this.data.userId,
+
+        nombreCompleto: this.data.userName,
+        idRol: this.data.rolId,
+        correo: this.data.userEmail,
+        telefono: this.data.userPhone,
+        usuario: this.data.userUsername,
+        contraseña: this.data.userPassword,    
+        codigoTrabajador: this.data.userCode,      
+        esActivo: this.data.userStatus ? '1' : '0' 
       });
     }
   }
 
+  obtenerNombreUsuario(): void {
+    const tokenDecode = this._loginService.getTokenDecode();
+    this.subUsuario = tokenDecode.sub
+
+  }
 
   guardarEditarUsuario() {
     const usuario: any = {
-      idUsuario: this.data != null ? this.data.idUsuario : 0,
-      nombreCompleto: this.formularioUsuario.value.nombreCompleto,
-      nombreUsuario: this.formularioUsuario.value.nombreUsuario,
-      password: this.formularioUsuario.value.password,
-      idRol: this.formularioUsuario.value.idRol,
-      email: this.formularioUsuario.value.email,
-      telefono: this.formularioUsuario.value.telefono,
-      esActivo: parseInt(this.formularioUsuario.value.esActivo),
+      userId: this.data == null ? 0 : this.data.userId,
+      userCode: this.formularioUsuario.value.codigoTrabajador,
+      userName: this.formularioUsuario.value.nombreCompleto,
+      userUserName: this.formularioUsuario.value.usuario,
+      userPassword: this.formularioUsuario.value.contraseña,
+      userRole: this.formularioUsuario.value.idRol,
+      userMail: this.formularioUsuario.value.correo,
+      userPhone: this.formularioUsuario.value.telefono,
+      usuarioCrea: this.subUsuario,
+      status: this.formularioUsuario.value.esActivo ? true : false
     }
 
     if (this.data == null) {
+      this.spinner.show();
       this._usuarioService.saveUser(usuario).subscribe({
         next: (r) => {
-          if (r.status == 200) {
-            this._sharedService.mensajeAlerta("Usuario guardado correctamente", "Exito");
+          if (r.message == 'OK') {
+            this._sharedService.mensajeAlerta(r.message, "Éxito");
             this.modalActual.close("true");
-          }
-          else {
+
+          } else {
             this._sharedService.mensajeAlerta("Error al guardar el usuario", "Error");
           }
+          this.spinner.hide();
         },
         error: (err) => {
-          this._sharedService.mensajeAlerta("Error al guardar el usuario", "Error");
+          const errorMessage = err.error?.message || "Error al guardar el usuario";
+          this._sharedService.mensajeAlerta(errorMessage, "Error");
+          this.spinner.hide();
         }
-      }
-      );
-
-    } else {
-      this._usuarioService.updateUser(usuario).subscribe({
+      });
+    }
+    else {
+      this.spinner.show();
+      this._usuarioService.ActualizarUsuario(usuario).subscribe({
         next: (r) => {
-          if (r.status == 200) {
-            this._sharedService.mensajeAlerta("Usuario actualizado correctamente", "Exito");
-            this.modalActual.close("true");
+          if (r.message  == 'OK') {
+            this._sharedService.mensajeAlerta(r.message, "Éxito");
+            this.modalActual.close("true");    
           }
           else {
-            this._sharedService.mensajeAlerta("Error al actualizar el usuario", "Error");
+            this._sharedService.mensajeAlerta("Error al actualizar el usuarioA", "Error");
           }
+          this.spinner.hide();
         },
-        error: (err) => {
-          this._sharedService.mensajeAlerta("Error al actualizar el usuario", "Error");
+        error: (  ) => {
+          this._sharedService.mensajeAlerta("Error al actualizar el usuarioB", "Error");
         }
       }
       );

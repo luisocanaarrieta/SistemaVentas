@@ -5,6 +5,7 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Entities
 {
     public class Usuario
     {
+        public int? userId { get; set; }
         public string? userCode { get; set; }
         public string? userName { get; set; }
         public string? userUserName { get; set; }
