@@ -1,0 +1,10 @@
+table{
+    width: 100%;
+}
+
+.custom-disabled-field input {
+    cursor: not-allowed;
+  }
+  .yellow-background input {
+    background-color: #fffdc4;
+  }

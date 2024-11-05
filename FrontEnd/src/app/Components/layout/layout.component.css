@@ -1,14 +1,4 @@
-.active-list-item {
-    background-color: rgb(157, 187, 220) !important;
-    /* Note: You could also use a custom theme */
-    font-weight: bolder;
-    color: black !important;
-    /* Note: You could also use a custom theme */
-    font-weight: bold;
-    max-height: 100% !important;
-  }
-  
-  
+
   
   .Sublist {
     display: flex;
@@ -58,7 +48,7 @@
   
   mat-toolbar {
     /*flex: 0 0 auto;*/
-    background-color: rgb(36, 160, 219);
+    background-color: rgb(6, 68, 97);
   }
   
   mat-icon {

@@ -64,7 +64,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-12 col-md-2">
-                        <button mat-raised-button color="accent" style="width: 80%;">
+                        <button mat-raised-button color="warn" style="width: 80%;">
                             Total: S/{{totalPagar.toFixed(2)}}
                         </button>
                     </div>
@@ -72,7 +72,7 @@
 
                 <div class="card-body table-responsive">
 
-                    <table mat-table [dataSource]="matDataSource" class="mat-elevation-z4" #tabla1 id="tabla">
+                    <table mat-table [dataSource]="matDataSource" class="mat-elevation-z2" #tabla1 id="tabla">
 
                         <ng-container matColumnDef="producto">
                             <th mat-header-cell *matHeaderCellDef>Producto</th>

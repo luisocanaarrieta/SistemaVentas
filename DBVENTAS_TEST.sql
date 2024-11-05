@@ -474,3 +474,32 @@ BEGIN
         ROLLBACK TRANSACTION;
     END CATCH
 END;
+
+
+
+CREATE PROCEDURE UspVentas_ListarVentas-- '','','0','F1012'
+    @fechaInicio VARCHAR(10),        
+    @fechaFin VARCHAR(10),              
+    @filtroBuscar VARCHAR(1),        
+    @numero VARCHAR(20)     
+AS  
+BEGIN  
+    SET NOCOUNT ON  
+
+    SELECT
+		A.SALE_ID,
+        (C.NUM_SERIAL + CAST(A.SALE_ID AS VARCHAR)) AS NUMERO,
+        A.SALE_DATE,
+        B.STATUS_ORDER_NAME,
+        ISNULL(A.SALE_TYPE_PAYMENT, '') AS SALE_TYPE_PAYMENT,
+        A.SALE_NET
+    FROM
+        SAL.SALE A
+    INNER JOIN
+        SAL.STATUS_ORDER B ON A.STATUS_ORDER_ID = B.STATUS_ORDER_ID
+    INNER JOIN
+        SAL.NUMBERING C ON A.NUM_ID = C.NUM_ID
+    WHERE 
+        (@filtroBuscar = '0' AND (C.NUM_SERIAL + CAST(A.SALE_ID AS VARCHAR)) LIKE '%' + @numero + '%')
+        OR (@filtroBuscar = '1' AND CAST(A.SALE_DATE AS DATE) BETWEEN CAST(@fechaInicio AS DATE) AND CAST(@fechaFin AS DATE))
+END

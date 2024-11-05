@@ -84,3 +84,28 @@ INSERT INTO SAL.NUMBERING (NUM_TYPE_ID, NUM_SERIAL, NUM_NAME, NUM_NOW, LOG_USER_
 VALUES 
     ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'BO'), 'B101', 'Boleta tienda principal', 1, 'ADMIN'),
     ((SELECT NUM_TYPE_ID FROM SAL.NUMBERING_TYPE WHERE NUM_TYPE_NAME = 'BO'), 'B201', 'Boleta sucursal lima', 1, 'ADMIN');
+
+
+INSERT INTO SEG.MODULE(MODULE_NAME,MODULE_ICON,MODULE_ROUTE, LOG_USER_CREATE) values
+('DashBoard','dashboard','/pages/dashboard','ADMIN'),
+('Usuarios','group','/pages/usuarios','ADMIN'),
+('Productos','collections_bookmark','/pages/productos','ADMIN'),
+('Venta','currency_exchange','/pages/venta','ADMIN'),
+('Historial Ventas','edit_note','/pages/historial_venta','ADMIN'),
+('Reportes','receipt','/pages/reportes','ADMIN')
+
+INSERT INTO SEG.MODULE_ROL(MODULE_ID,ROL_ID, LOG_USER_CREATE) values
+(1,1,'ADMIN'),
+(2,1,'ADMIN'),
+(3,1,'ADMIN'),
+(4,1,'ADMIN'),
+(5,1,'ADMIN'),
+(6,1,'ADMIN'),
+(4,2,'ADMIN'),
+(5,2,'ADMIN'),
+(3,3,'ADMIN'),
+(4,3,'ADMIN'),
+(5,3,'ADMIN'),
+(6,3,'ADMIN')
+
+

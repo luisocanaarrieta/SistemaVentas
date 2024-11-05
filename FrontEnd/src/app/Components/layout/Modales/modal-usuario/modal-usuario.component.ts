@@ -100,7 +100,7 @@ export class ModalUsuarioComponent implements OnInit {
       this.spinner.show();
       this._usuarioService.saveUser(usuario).subscribe({
         next: (r) => {
-          if (r.message == 'OK') {
+          if (r.message == 'Ok') {
             this._sharedService.mensajeAlerta(r.message, "Éxito");
             this.modalActual.close("true");
 
@@ -120,7 +120,7 @@ export class ModalUsuarioComponent implements OnInit {
       this.spinner.show();
       this._usuarioService.ActualizarUsuario(usuario).subscribe({
         next: (r) => {
-          if (r.message  == 'OK') {
+          if (r.message  == 'Ok') {
             this._sharedService.mensajeAlerta(r.message, "Éxito");
             this.modalActual.close("true");    
           }
@@ -131,6 +131,8 @@ export class ModalUsuarioComponent implements OnInit {
         },
         error: (  ) => {
           this._sharedService.mensajeAlerta("Error al actualizar el usuarioB", "Error");
+          this.spinner.hide();
+
         }
       }
       );

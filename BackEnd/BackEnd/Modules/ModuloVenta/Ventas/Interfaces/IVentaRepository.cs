@@ -7,6 +7,7 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Interfaces
     {
         Task<int> InsertarCabeceraVenta(Venta venta);
         Task InsertarDetalleVenta(DetalleVenta venta);
-
+        Task<List<VentaLista>> ListarVentas(VentaDto venta);
+        Task<List<VentaDetalles>> ListarDetalleVenta(int saleId);
     }
 }

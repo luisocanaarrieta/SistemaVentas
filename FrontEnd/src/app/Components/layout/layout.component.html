@@ -6,7 +6,7 @@
     <span class="example-spacer"></span>
 
     <mat-icon style="color: #fff !important;">person </mat-icon>
-
+    <span class="ps-2" style="color: #fff">{{subUsuario}}</span>
 </mat-toolbar>
 
 
@@ -38,22 +38,22 @@
 
             <mat-list-item routerLink="active-list-item" routerLink="/pages/venta" mat-list-item>
                 <div class="list-item-content">
-                    <mat-icon>currency-exchange</mat-icon>
-                    <span>Ventas</span>
+                    <mat-icon>receipt</mat-icon>
+                    <span>Vender</span>
                 </div>
             </mat-list-item>
 
-            <mat-list-item routerLink="active-list-item" routerLink="/pages/reportes" mat-list-item>
+            <!-- <mat-list-item routerLink="active-list-item" routerLink="/pages/reportes" mat-list-item>
                 <div class="list-item-content">
                     <mat-icon>receipt</mat-icon>
                     <span>Reportes</span>
                 </div>
-            </mat-list-item>
+            </mat-list-item> -->
 
             <mat-list-item routerLink="active-list-item" routerLink="/pages/historial-venta" mat-list-item>
                 <div class="list-item-content">
                     <mat-icon>edit-note</mat-icon>
-                    <span>Historial</span>
+                    <span>Ventas</span>
                 </div>
             </mat-list-item>
 
@@ -77,7 +77,10 @@
                 <mat-icon>logout</mat-icon>
                 <span>&nbsp;Salir</span>
             </a> -->
-
+            <a (click)="cerrarSesion()" routerLinkActive="active-list-item" mat-list-item>
+                <mat-icon>logout</mat-icon>
+                <span>&nbsp;Salir</span>
+            </a>
         </mat-nav-list>
 
     </mat-drawer>

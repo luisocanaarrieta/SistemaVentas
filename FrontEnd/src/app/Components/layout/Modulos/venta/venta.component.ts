@@ -24,6 +24,7 @@ export class VentaComponent implements OnInit {
   productoSeleccionado!: any;
   tipoPagoDefault: string = 'Efectivo';
   totalPagar: number = 0;
+  subUsuario: string ='';
 
   formularioProductoVenta: FormGroup;
   columnasTabla: string[] = ['producto', 'cantidad', 'precio', 'total', 'acciones'];
@@ -60,16 +61,21 @@ export class VentaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.obtenerNombreUsuario();
+
   }
 
+  obtenerNombreUsuario(): void {
+    const tokenDecode = this._loginService.getTokenDecode();
+    this.subUsuario = tokenDecode.sub
+
+  }
   mostrarProducto(producto: any): string {
     return producto.productName;
   }
 
   productoParaVenta(event: any) {
     this.productoSeleccionado = event.option.value;
-    console.log(this.productoSeleccionado);
   }
 
   agregarProductoVenta() {
@@ -111,6 +117,7 @@ export class VentaComponent implements OnInit {
       const venta: any = {
         tipoPago: this.tipoPagoDefault,
         totalTexto: String(this.totalPagar.toFixed(2)),
+        usuarioCrea: this.subUsuario,
         detalleVenta: this.listaProductosParaVenta
       }
 
@@ -125,7 +132,7 @@ export class VentaComponent implements OnInit {
             Swal.fire({
               icon: 'success',
               title: 'Venta Registrada',
-              text: 'Numero de venta: ' + r.numeroVenta,
+              text: 'Numero de venta: ' + r.resultado,
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'Sí',
               showCancelButton: true,

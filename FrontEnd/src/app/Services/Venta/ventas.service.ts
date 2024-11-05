@@ -19,4 +19,9 @@ export class VentasService {
     return this.http.post(this.myAppUrl + this.myApiUrl + '/RegistrarVenta', usuario);
   }
 
+  ObtenerVentasConDetalle(venta :any):Observable<any>  {
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/ObtenerVentasConDetalle', venta);
+  }
+
+
 }
