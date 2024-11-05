@@ -23,5 +23,13 @@ export class VentasService {
     return this.http.post(this.myAppUrl + this.myApiUrl + '/ObtenerVentasConDetalle', venta);
   }
 
+  ListarEstadosReparto():Observable<any>  {
+    return this.http.get(this.myAppUrl + this.myApiUrl  + '/ListarEstadosReparto');
+  }
+
+  CambiarEstadoVenta(estado : any):Observable<any>  {
+    return this.http.post(this.myAppUrl + this.myApiUrl + '/CambiarEstadoVenta', estado);
+  }
+
 
 }

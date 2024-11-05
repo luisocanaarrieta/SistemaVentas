@@ -15,9 +15,9 @@ const routes: Routes = [{
     {path: 'dashboard', component: DashboardComponent},  
     {path: 'usuarios', component: UsuarioComponent}, 
     {path: 'venta', component: VentaComponent}, 
-    {path: 'historial-venta', component: HistorialVentaComponent}, 
-    {path: 'reportes', component: ReportesComponent},  
-    {path: 'producto', component: ProductoComponent},  
+    {path: 'historial_venta', component: HistorialVentaComponent}, 
+    {path: 'delivery', component: ReportesComponent},  
+    {path: 'productos', component: ProductoComponent},  
   ]
 }];
 

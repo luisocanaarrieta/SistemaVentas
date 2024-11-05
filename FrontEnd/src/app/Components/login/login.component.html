@@ -1,7 +1,10 @@
 <div class="body">
     <mat-card class="loginCard">
-        <div class="header">
-            <h2 class="login-title">Login</h2>
+
+        <div class="p-2 col-md-12">
+            <div class="card-body text-center">
+                <h3>Iniciar Sesion</h3>
+            </div>
         </div>
         <mat-card-content style="padding-bottom: 15px;">
             <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()" class="login-form">
@@ -17,7 +20,8 @@
                     <mat-icon matSuffix>mail</mat-icon>
                 </mat-form-field>
 
-                <button mat-raised-button color="primary" type="submit" [disabled]="formularioLogin.invalid">Iniciar</button>
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="formularioLogin.invalid">Iniciar</button>
             </form>
         </mat-card-content>
 

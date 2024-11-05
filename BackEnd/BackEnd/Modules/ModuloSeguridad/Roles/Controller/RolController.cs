@@ -30,5 +30,22 @@ namespace BackEnd.Modules.ModuloSeguridad.Roles.Controller
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("ModuloXRol/{rolId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ModuloXRol([FromRoute] int rolId)
+        {
+            try
+            {
+                var result = await _rolService.ModuloXRol(rolId);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

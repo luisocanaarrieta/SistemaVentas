@@ -29,7 +29,7 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Service
                 detalle.usuarioCrea = venta.usuarioCrea;
                 await _ventaRepository.InsertarDetalleVenta(detalle);
             }
-   
+
             return ventaId;
         }
 
@@ -45,6 +45,14 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Service
             return ventas;
         }
 
+        public async Task<List<EstadosDto>> ListarEstadosReparto()
+        {
+            return await _ventaRepository.ListarEstadosReparto();
+        }
 
+        public async Task<int> CambiarEstadoVenta(int saleId, int statusOrderId)
+        {
+            return await _ventaRepository.CambiarEstadoVenta(saleId, statusOrderId);
+        }
     }
 }

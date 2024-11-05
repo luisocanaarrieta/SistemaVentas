@@ -18,7 +18,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   columnasTabla: string[] = ['nombreCompleto', 'nombreUsuario', 'email', 'telefono', 'rol', 'estado', 'acciones'];
   dataInicio: any[] = [];
-  
+
   public matDataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -82,8 +82,10 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
             this._sharedService.mensajeAlerta('Usuario inactivado', 'Ok');
             this.ListarUsuarios();
             this.spinner.hide();
-          } else
+          } else {
             this._sharedService.mensajeAlerta('No se pudo eliminar', 'Error');
+          }
+          this.spinner.hide();
         });
       }
     })

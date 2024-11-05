@@ -88,7 +88,7 @@ namespace BackEnd.Modules.ModuloSeguridad.Usuarios.Controller
             {
                 var result = await _usuarioService.ActualizarUsuario(usuario);
 
-                return Ok(new { message = "OK" });
+                return Ok(new { message = "Ok" });
             }
             catch (Exception e)
             {

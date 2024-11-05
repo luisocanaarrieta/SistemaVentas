@@ -80,7 +80,7 @@
                                     <mat-icon matSuffix>code</mat-icon>
                                 </mat-form-field>
                             </div> 
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6" *ngIf="this.actualizar==true">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Estado</mat-label>
                                     <mat-select formControlName="esActivo">

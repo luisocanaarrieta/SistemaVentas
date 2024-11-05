@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/Services/Seguridad/login.service';
+import { RolService } from 'src/app/Services/Seguridad/rol.service';
 import { SharedService } from 'src/app/Shared/shared.service';
 
 @Component({
@@ -18,12 +19,14 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private _sharedService: SharedService,
     private _loginService: LoginService,
+    private _rolService: RolService
 
   ) { }
 
 
   ngOnInit(): void {
     this.obtenerNombreUsuario();
+    this.obtenerMenu();
   }
 
   obtenerNombreUsuario(): void {
@@ -36,5 +39,11 @@ export class LayoutComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  obtenerMenu() {
+    const idRol = parseInt(this.rolUsuario);
+    this._rolService.ModuloXRol(idRol).subscribe(data => {
+      this.listaMenu = data;
+    });
+  }
 
 }

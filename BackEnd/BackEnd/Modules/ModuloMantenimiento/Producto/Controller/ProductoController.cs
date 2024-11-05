@@ -77,7 +77,7 @@ namespace BackEnd.Modules.ModuloMantenimiento.Producto.Controller
             {
                 var result = await _productoService.ActualizarProducto(usuario);
 
-                return Ok(new { message = "OK" });
+                return Ok(new { message = "Ok" });
             }
             catch (Exception e)
             {

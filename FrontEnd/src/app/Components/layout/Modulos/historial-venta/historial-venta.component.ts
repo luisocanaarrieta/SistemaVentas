@@ -112,6 +112,10 @@ export class HistorialVentaComponent implements AfterViewInit {
       disableClose: true,
       data: venta,
       width: '800px'
+    }).afterClosed().subscribe(r => {
+      if (r) {
+        this.buscarVentas();
+      }
     });
   }
 

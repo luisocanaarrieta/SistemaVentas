@@ -18,6 +18,7 @@ export class ModalUsuarioComponent implements OnInit {
   formularioUsuario: FormGroup
   tituloAccion: string = "Agregar";
   botonAccion: string = "Guardar";
+  actualizar: boolean = false;
 
   subUsuario: string ='';
   tokenDecode: any;
@@ -49,6 +50,8 @@ export class ModalUsuarioComponent implements OnInit {
     if (this.data != null) {
       this.tituloAccion = "Editar";
       this.botonAccion = "Actualizar";
+      this.actualizar = true;
+
     }
 
     this._rolService.obtenerRoles().subscribe(r => {
@@ -93,7 +96,7 @@ export class ModalUsuarioComponent implements OnInit {
       userMail: this.formularioUsuario.value.correo,
       userPhone: this.formularioUsuario.value.telefono,
       usuarioCrea: this.subUsuario,
-      status: this.formularioUsuario.value.esActivo ? true : false
+      status: this.formularioUsuario.value.esActivo === '1'
     }
 
     if (this.data == null) {

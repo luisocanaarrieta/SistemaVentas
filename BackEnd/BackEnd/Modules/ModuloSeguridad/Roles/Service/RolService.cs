@@ -12,6 +12,10 @@ namespace BackEnd.Modules.ModuloSeguridad.Roles.Service
             _rolRepository = rolRepository;
         }
 
+        public async Task<List<ModuloXRol>> ModuloXRol(int rolId)
+        {
+            return await _rolRepository.ModuloXRol(rolId);
+        }
         public async Task<List<Rol>> obtenerListaRoles()
         {
            return await _rolRepository.obtenerListaRoles();

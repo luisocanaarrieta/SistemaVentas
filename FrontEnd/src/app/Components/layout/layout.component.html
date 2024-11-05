@@ -14,69 +14,13 @@
 <mat-drawer-container class="example-container" full-screen>
     <mat-drawer #drawer class="example-sidenav" mode="over" opened="false" style="width: 200px;">
         <mat-nav-list>
-            <mat-list-item routerLinkActive="active-list-item" routerLink="/pages/dashboard" mat-list-item>
+            <mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.moduloRoute" mat-list-item>
                 <div class="list-item-content">
-                    <mat-icon>home</mat-icon>
-                    <span>Inicio</span>
+                    <mat-icon>{{menu.moduloIcon}}</mat-icon>
+                    <span>{{menu.moduloName}}</span>
                 </div>
             </mat-list-item>
 
-
-            <mat-list-item routerLink="active-list-item" routerLink="/pages/usuarios" mat-list-item>
-                <div class="list-item-content">
-                    <mat-icon>person</mat-icon>
-                    <span>Usuarios</span>
-                </div>
-            </mat-list-item>
-
-            <mat-list-item routerLink="active-list-item" routerLink="/pages/producto" mat-list-item>
-                <div class="list-item-content">
-                    <mat-icon>collections-bookmark</mat-icon>
-                    <span>Productos</span>
-                </div>
-            </mat-list-item>
-
-            <mat-list-item routerLink="active-list-item" routerLink="/pages/venta" mat-list-item>
-                <div class="list-item-content">
-                    <mat-icon>receipt</mat-icon>
-                    <span>Vender</span>
-                </div>
-            </mat-list-item>
-
-            <!-- <mat-list-item routerLink="active-list-item" routerLink="/pages/reportes" mat-list-item>
-                <div class="list-item-content">
-                    <mat-icon>receipt</mat-icon>
-                    <span>Reportes</span>
-                </div>
-            </mat-list-item> -->
-
-            <mat-list-item routerLink="active-list-item" routerLink="/pages/historial-venta" mat-list-item>
-                <div class="list-item-content">
-                    <mat-icon>edit-note</mat-icon>
-                    <span>Ventas</span>
-                </div>
-            </mat-list-item>
-
-            <!-- <div *ngFor="let perfil of ListaFiltro">
-                <a (click)="perfil.isFalse = !perfil.isFalse" routerLinkActive="active-list-item" mat-list-item>
-                    <span>&nbsp;{{perfil.nombre}}</span>
-                </a>
-
-                <mat-nav-list *ngIf="buscador != '' || perfil.isFalse == true">
-                    <div *ngFor="let l of listaFiltrada" class="Sublist">
-                        <a *ngIf=" l.perfil  == perfil.nombre" routerLink="/{{l.ruta | lowercase}}"
-                            routerLinkActive="active-list-item" mat-list-item>
-                            <mat-icon>group</mat-icon>
-                            <span>&nbsp;{{l.modulo}}</span>
-                        </a>
-                    </div>
-                </mat-nav-list>
-            </div> -->
-
-            <!-- <a (click)="logOut()" routerLinkActive="active-list-item" mat-list-item>
-                <mat-icon>logout</mat-icon>
-                <span>&nbsp;Salir</span>
-            </a> -->
             <a (click)="cerrarSesion()" routerLinkActive="active-list-item" mat-list-item>
                 <mat-icon>logout</mat-icon>
                 <span>&nbsp;Salir</span>

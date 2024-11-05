@@ -20,6 +20,8 @@ export class ModalProductoComponent implements OnInit {
   tituloAccion: string = "Agregar";
   botonAccion: string = "Guardar";
 
+  actualizar: boolean = false;
+
   subUsuario: string ='';
   listaCategorias: any[] = [];
   constructor(
@@ -37,15 +39,16 @@ export class ModalProductoComponent implements OnInit {
     this.formularioProducto = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-      precio: ['', Validators.required],
+      precio: [0, Validators.required],
       idCategoria: ['', Validators.required],
       esActivo: ['1', Validators.required],
-      stock: ['', Validators.required],
+      stock: [0, Validators.required],
     });
 
     if (this.data != null) {
       this.tituloAccion = "Editar";
       this.botonAccion = "Actualizar";
+      this.actualizar = true;
     }
 
     this._categoriaService.obtenerCategorias().subscribe(r => {
@@ -56,14 +59,16 @@ export class ModalProductoComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerNombreUsuario();
 
-    if (this.data != null) {
+    if (this.data != null) {  
       this.formularioProducto.patchValue({
-        nombre: this.data.nombre,
-        descripcion: this.data.descripcion,
-        precio: this.data.precio,
-        idCategoria: this.data.idCategoria,
-        stock: this.data.stock,
-        esActivo: this.data.esActivo.toString(),
+        idProducto : this.data.productId,
+
+        nombre: this.data.productName,
+        descripcion: this.data.productSku,
+        precio: this.data.productPrice,
+        idCategoria: this.data.categoryId,
+        stock: this.data.productStock,
+        esActivo: this.data.productStatus ? '1' : '0' 
       });
     }
   }
@@ -77,16 +82,15 @@ export class ModalProductoComponent implements OnInit {
 
   guardarEditarProducto() {
     const usuario: any = {
-      userId: this.data == null ? 0 : this.data.userId,
-      userCode: this.formularioProducto.value.codigoTrabajador,
-      userName: this.formularioProducto.value.nombreCompleto,
-      userUserName: this.formularioProducto.value.usuario,
-      userPassword: this.formularioProducto.value.contraseña,
-      userRole: this.formularioProducto.value.idRol,
-      userMail: this.formularioProducto.value.correo,
-      userPhone: this.formularioProducto.value.telefono,
+      productId: this.data == null ? 0 : this.data.productId,
+
+      productSku: this.formularioProducto.value.descripcion,
+      productName: this.formularioProducto.value.nombre,
+      categoryId: this.formularioProducto.value.idCategoria,
+      productStock: this.formularioProducto.value.stock,
+      productPrice: this.formularioProducto.value.precio,
       usuarioCrea: this.subUsuario,
-      status: this.formularioProducto.value.esActivo ? true : false
+      productStatus: this.formularioProducto.value.esActivo  === '1'
     }
 
     if (this.data == null) {
@@ -113,7 +117,7 @@ export class ModalProductoComponent implements OnInit {
       this.spinner.show();
       this._productoService.ActualizarProducto(usuario).subscribe({
         next: (r) => {
-          if (r.message  == 'OK') {
+          if (r.message  == 'Ok') {
             this._sharedService.mensajeAlerta(r.message, "Éxito");
             this.modalActual.close("true");    
           }
@@ -124,6 +128,8 @@ export class ModalProductoComponent implements OnInit {
         },
         error: (  ) => {
           this._sharedService.mensajeAlerta("Error al actualizar el usuarioB", "Error");
+          this.spinner.hide();
+
         }
       }
       );

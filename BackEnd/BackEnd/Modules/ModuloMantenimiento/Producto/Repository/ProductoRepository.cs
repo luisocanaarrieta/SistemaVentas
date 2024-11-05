@@ -67,6 +67,7 @@ namespace BackEnd.Modules.ModuloMantenimiento.Producto.Repository
                     cmd.Parameters.Add(new SqlParameter("@PRODUCT_NAME", SqlDbType.VarChar) { Value = producto.productName });
                     cmd.Parameters.Add(new SqlParameter("@PRODUCT_STOCK", SqlDbType.Int) { Value = producto.productStock });
                     cmd.Parameters.Add(new SqlParameter("@PRODUCT_PRICE", SqlDbType.Decimal) { Value = producto.productPrice });
+                    cmd.Parameters.Add(new SqlParameter("@CATEGORY_ID", SqlDbType.Int) { Value = producto.categoryId });
                     cmd.Parameters.Add(new SqlParameter("@PRODUCT_STATUS", SqlDbType.Bit) { Value = producto.productStatus });
                     cmd.Parameters.Add(new SqlParameter("@LOG_USER_UPDATE", SqlDbType.VarChar) { Value = producto.usuarioCrea });
 

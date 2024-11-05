@@ -18,6 +18,7 @@
         public string numero { get; set; }
         public DateTime saleDate { get; set; }
         public string statusDescripcion { get; set; }
+        public int statusOrderId { get; set; }
         public string tipoPagoDescripcion { get; set; }
         public decimal saleNet { get; set; }
         public List<VentaDetalles> VentaDetalles { get; set; }
@@ -36,5 +37,14 @@
         public decimal total { get; set; }
 
     }
+
+    public class EstadosDto
+    {
+        public int saleId { get; set; }
+        public int statusVentaId { get; set; }
+        public string? statusVentaName { get; set; }
+        public string? statusVentaDescripcion { get; set; }
+    }
+
 
 }

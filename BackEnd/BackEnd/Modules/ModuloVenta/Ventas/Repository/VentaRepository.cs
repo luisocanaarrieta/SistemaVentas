@@ -95,6 +95,7 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Repository
                                 saleId = dr.GetInt32(dr.GetOrdinal("SALE_ID")),
                                 numero = dr.GetString(dr.GetOrdinal("NUMERO")),
                                 saleDate = dr.GetDateTime(dr.GetOrdinal("SALE_DATE")),
+                                statusOrderId = dr.GetInt32(dr.GetOrdinal("STATUS_ORDER_ID")),
                                 statusDescripcion = dr.GetString(dr.GetOrdinal("STATUS_ORDER_NAME")),
                                 tipoPagoDescripcion = dr.GetString(dr.GetOrdinal("SALE_TYPE_PAYMENT")),
                                 saleNet = dr.GetDecimal(dr.GetOrdinal("SALE_NET")),
@@ -146,6 +147,58 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Repository
             }
 
             return detalles;
+        }
+
+        public async Task<List<EstadosDto>> ListarEstadosReparto()
+        {
+            List<EstadosDto> lista = new List<EstadosDto>();
+
+            using (SqlConnection sql = new SqlConnection(_connectionString))
+            {
+                await sql.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("UspVentas_ListarEstadosReparto", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await dr.ReadAsync())
+                        {
+                            var item = new EstadosDto()
+                            {
+                                statusVentaId = dr.GetInt32(dr.GetOrdinal("STATUS_ORDER_ID")),
+                                statusVentaName = dr.GetString(dr.GetOrdinal("STATUS_ORDER_NAME")),
+                                statusVentaDescripcion = dr.GetString(dr.GetOrdinal("STATUS_ORDER_DESC")),
+
+                            };
+
+                            lista.Add(item);
+                        }
+                    }
+
+                }
+            }
+            return lista;
+        }
+
+        public async Task<int> CambiarEstadoVenta(int saleId, int statusOrderId)
+        {
+            using (SqlConnection sql = new SqlConnection(_connectionString))
+            {
+                await sql.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("UspVentas_CambiarEstadoVenta", sql))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(new SqlParameter("@saleId", SqlDbType.Int) { Value = saleId });
+                    cmd.Parameters.Add(new SqlParameter("@statusOrderId", SqlDbType.Int) { Value = statusOrderId });
+
+                    int result = await cmd.ExecuteNonQueryAsync();
+                    return result;
+                }
+            }
         }
     }
 }

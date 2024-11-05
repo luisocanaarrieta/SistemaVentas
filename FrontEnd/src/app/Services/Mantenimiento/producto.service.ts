@@ -24,8 +24,8 @@ export class ProductoService {
     return this.http.post(this.myAppUrl + this.myApiUrl +'/InsertarProducto', usuario);
   }
 
-  EliminarProducto(userId: number):Observable<any>  {
-    return this.http.put(this.myAppUrl + this.myApiUrl + '/EliminarProducto', userId);
+  EliminarProducto(productId: number):Observable<any>  {
+    return this.http.put(this.myAppUrl + this.myApiUrl + '/EliminarProducto', productId);
   }
 
   ActualizarProducto(usuario : any):Observable<any>  {

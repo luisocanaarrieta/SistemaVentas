@@ -22,4 +22,8 @@ export class RolService {
     return this.http.get(this.myAppUrl + this.myApiUrl+'/obtenerListaRoles');
   }
 
+  ModuloXRol(rolId: number): Observable<any> {
+    return this.http.get(this.myAppUrl + this.myApiUrl+'/ModuloXRol/'+rolId);
+  }
+
 }

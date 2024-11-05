@@ -7,5 +7,8 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Interfaces
         Task<int> RegistrarVenta(Venta venta);
         Task<List<VentaLista>> ListarVentas(VentaDto venta);
         Task<List<VentaLista>> ObtenerVentasConDetalle(VentaDto venta);
+        Task<List<EstadosDto>> ListarEstadosReparto();
+        Task<int> CambiarEstadoVenta(int saleId, int statusOrderId);
+
     }
 }

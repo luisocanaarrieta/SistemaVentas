@@ -83,14 +83,17 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.spinner.show();
-        this._productoService.EliminarProducto(producto.userId).subscribe(r => {
+        this._productoService.EliminarProducto(producto.productId).subscribe(r => {
           if (r) {
             this._sharedService.mensajeAlerta('Producto inactivado', 'Ok');
             this.ListarProductos();
             this.spinner.hide();
-          } else
+          } else {
             this._sharedService.mensajeAlerta('No se pudo eliminar', 'Error');
-        });
+          }
+          this.spinner.hide();
+        }
+        );
       }
     })
   }

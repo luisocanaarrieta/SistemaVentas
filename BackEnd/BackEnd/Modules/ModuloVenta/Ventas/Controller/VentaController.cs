@@ -69,5 +69,40 @@ namespace BackEnd.Modules.ModuloVenta.Ventas.Controller
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("ListarEstadosReparto")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ListarEstadosReparto()
+        {
+            try
+            {
+                var result = await _ventaService.ListarEstadosReparto();
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("CambiarEstadoVenta")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CambiarEstadoVenta([FromBody] EstadosDto request)
+        {
+            try
+            {
+                var result = await _ventaService.CambiarEstadoVenta(request.saleId, request.statusVentaId);
+
+                return Ok(new { message = "OK" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }
